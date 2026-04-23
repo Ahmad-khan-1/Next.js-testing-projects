@@ -7,7 +7,6 @@ export default function ChatBox() {
     const [messages, setMessages] = useState([]);
     const inputRef = useRef(null);
 
-    // 🔥 useOptimistic (main concept)
     const [optimisticMessages, addOptimisticMessage] = useOptimistic(
         messages,
         (currentMessages, newText) => [
@@ -22,15 +21,12 @@ export default function ChatBox() {
 
         inputRef.current.value = "";
 
-        // ✅ instant UI update
         startTransition(() => {
             addOptimisticMessage(text);
         });
 
-        // ⏳ server call
         const saved = await sendMessage(text);
 
-        // ✅ real state update
         setMessages((prev) => [...prev, { text: saved, pending: false }]);
     }
 
