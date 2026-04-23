@@ -3,7 +3,8 @@ const ServerComp = async () => {
   const res = await fetch(URl);
   const data = await res.json();
 
-  console.log(data);
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return (
     <>
       <h1>Server Component</h1>
