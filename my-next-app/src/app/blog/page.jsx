@@ -1,17 +1,22 @@
-async function getPost() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  return res.json();
-}
+import Link from "next/link";
 
-export default async function Blog() {
-  const posts = await getPost();
+const blogs = [
+  { slug: "next.js", title: "Next.js Basic" },
+  { slug: "react.js", title: "React.js Basic" },
+  { slug: "node", title: "Node Basic" },
+];
+
+export default function BlogPost() {
   return (
     <div>
-      {posts.map((post) => (
-        <div key={post.id} className="p-4 border rounded mb-2">
-          <h3 className="text-lg font-semibold">{post.title}</h3>
-        </div>
-      ))}
+      <h1>BlogPost</h1>
+      <ul>
+        {blogs.map((blog) => (
+          <li key={blog.slug}>
+            <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
