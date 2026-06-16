@@ -1,14 +1,26 @@
 async function getPost(slug) {
   const res = await fetch(`https://jsonplaceholder.typicode.com/users/${slug}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch post for slug ${slug}: ${res.status}`);
+  }
   return res.json();
 }
 export default async function BlogPost({ params }) {
+  const slug = params?.slug;
+  if (!slug) {
+    return (
+      <div className="p-4 border rounded text-red-500">
+        No post slug provided.
+      </div>
+    );
+  }
+
   try {
-    const post = await getPost(params.slug);
+    const post = await getPost(slug);
     if (!post || !post.name) {
       return (
         <div className="p-4 border rounded text-red-500">
-          No post found for slug: {params.slug}
+          No post found for slug: {slug}
         </div>
       );
     }

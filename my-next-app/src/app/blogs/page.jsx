@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const blogs = [
-  { slug: "next.js", title: "Next.js Basic" },
-  { slug: "react.js", title: "React.js Basic" },
-  { slug: "node", title: "Node Basic" },
+  { slug: "1", title: "Next.js Basic" },
+  { slug: "2", title: "React.js Basic" },
+  { slug: "3", title: "Node Basic" },
 ];
 
 export default function BlogPost() {
