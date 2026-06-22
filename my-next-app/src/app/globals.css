@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --surface: #111111;
+  --surface-muted: #1c1c1c;
+  --border: rgba(255, 255, 255, 0.12);
+  --muted: rgba(255, 255, 255, 0.72);
 }
 
 @theme inline {
@@ -14,17 +18,44 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #201616;
-    --foreground: #fdfdfd;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--foreground);
+}
+
+a,
+button,
+input,
+textarea {
+  color: #f5f5f5;
+}
+
+a {
+  text-decoration: none;
+  color: #9ae6ff;
+}
+
+a:hover,
+a:focus {
+  color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li {
+  color: var(--foreground);
 }
 
 .todo-item {
@@ -52,6 +83,118 @@ body {
   background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
   background-size: 200% 100%;
   animation: shimmer 1.2s infinite;
+}
+
+.parallel-shimmer-shell {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.96));
+}
+
+.parallel-shimmer-header {
+  max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.parallel-shimmer-title,
+.parallel-shimmer-subtitle,
+.shimmer-card-title,
+.shimmer-card-heading,
+.shimmer-card-body {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28);
+}
+
+.parallel-shimmer-title {
+  height: 52px;
+  width: 46%;
+  border-radius: 999px;
+  animation: shimmer 1.6s infinite;
+}
+
+.parallel-shimmer-subtitle {
+  height: 18px;
+  width: 32%;
+  border-radius: 999px;
+  animation: shimmer 1.6s infinite;
+}
+
+.parallel-shimmer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.shimmer-card {
+  padding: 1.5rem;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.16);
+}
+
+.shimmer-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+.shimmer-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06) 25%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+.shimmer-card-title {
+  height: 18px;
+  width: 55%;
+  border-radius: 999px;
+  animation: shimmer 1.6s infinite;
+}
+
+.shimmer-card-body {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.shimmer-line.short {
+  width: 40%;
+}
+
+.shimmer-line {
+  height: 12px;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2a2a2a 18%, #3f5a72 45%, #2a2a2a 72%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes shimmer {
