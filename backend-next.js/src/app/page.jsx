@@ -17,35 +17,67 @@ export default function Home() {
     const todosData = await response.json();
     setTodos(Array.isArray(todosData) ? todosData : (todosData.todos ?? []));
   };
+
   // Add new todo
   const addTodo = async (text) => {
-    const response = await fetch("./todos", {
+    const response = await fetch("/todos", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ text }),
     });
+
+    if (!response.ok) {
+      console.error(await response.text());
+      return;
+    }
+
     const newTodo = await response.json();
     setTodos([newTodo, ...todos]);
   };
 
   // Delete todo
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const deleteTodo = async (id) => {
+    const response = await fetch(`/todos/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.status === 204) {
+      fetchTodos();
+    }
   };
 
   // Toggle todo completion
-  const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-      ),
-    );
+  const toggleTodo = async (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+
+    const response = await fetch(`/todos/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed: !todo.completed }),
+    });
+
+    if (response.status === 200) {
+      fetchTodos();
+    }
   };
 
   // Update todo text
-  const updateTodo = (id, newText) => {
-    setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo)),
-    );
+  const updateTodo = async (id, newtext) => {
+    const response = await fetch(`/todos/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: newtext }),
+    });
+
+    if (response.status === 200) {
+      fetchTodos();
+    }
   };
 
   return (
