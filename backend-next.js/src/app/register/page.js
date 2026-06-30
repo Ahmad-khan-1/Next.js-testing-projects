@@ -11,9 +11,17 @@ export default function RegisterPage() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    // API registration logic here
-    console.log("Registering:", { name, email, password });
-    router.push("/login");
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+    const data = await response.json().catch(() => null);
+    if (!data.error) {
+      router.push("/login");
+    }
   };
 
   return (

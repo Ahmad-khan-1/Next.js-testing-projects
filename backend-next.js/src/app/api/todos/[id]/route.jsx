@@ -1,5 +1,5 @@
 import Todo from "@/models/todoModel";
-import todos from "../../../../todos.json";
+import todos from "../../../../../todos.json";
 import { connectDB } from "@/lib/db";
 
 //? GET Request

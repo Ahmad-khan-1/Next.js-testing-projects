@@ -1,22 +1,22 @@
 import { connectDB } from "@/lib/db";
 import Todo from "@/models/todoModel";
+import { cookies } from "next/headers";
 
 export async function GET() {
   await connectDB();
 
   const allTodos = await Todo.find();
+  const todos = allTodos.map((todo) => ({
+    id: todo._id.toString(),
+    text: todo.text,
+    completed: todo.completed,
+  }));
 
-  return Response.json(
-    allTodos.map((todo) => {
-      const { id, text, completed } = todo;
-
-      return {
-        id,
-        text,
-        completed,
-      };
-    }),
-  );
+  return Response.json(todos, {
+    headers: {
+      "Set-Cookie": "userId=1234;path=/;httpOnly",
+    },
+  });
 }
 
 export async function POST(request) {
